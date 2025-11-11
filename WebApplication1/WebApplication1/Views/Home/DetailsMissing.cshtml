@@ -1,0 +1,72 @@
+﻿@model WebApplication1.Models.MissingView1
+
+@{
+    ViewData["Title"] = "Missing Report Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="~/css/DetailsMissing.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Logo" />
+            <div class="logo-text">
+                <h1 class="logoName">San Bartolome Barangay Hall</h1>
+                <h2 class="logoSubtitle">Barangay Risk Reduction Management System</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="body">
+        <div class="nav-container">
+            <div class="nav-bar">
+                <div class="nav-item">
+                    <a href="/Index" class="@(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Mapping" class="@(ViewData["ActivePage"]?.ToString() == "Mapping" ? "active" : "")">Risk Mapping</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Missing" class="@(ViewData["ActivePage"]?.ToString() == "Missing" ? "active" : "")">Missing Report</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Evacuess" class="@(ViewData["ActivePage"]?.ToString() == "Evacuess" ? "active" : "")">Evacuess</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-container">
+            <h2>Missing Report Details</h2>
+
+            <div>
+                <label>Photo:</label><br />
+                @if (!string.IsNullOrEmpty(Model.PhotoUrl))
+                {
+                    <img src="@Model.PhotoUrl" style="max-width:200px; border-radius:6px;" />
+                }
+                else
+                {
+                    <p>No photo uploaded.</p>
+                }
+            </div>
+            <div><label>Name:</label><p>@Model.Name</p></div>
+            <div><label>Age:</label><p>@Model.Age</p></div>
+            <div><label>Date Missing:</label><p>@Model.DateMissing.ToShortDateString()</p></div>
+            <div><label>Gender:</label><p>@Model.Gender</p></div>
+            <div><label>Last Seen Location:</label><p>@Model.LastSeenLocation</p></div>
+            <div><label>Address:</label><p>@Model.Address</p></div>
+            <div><label>Description:</label><p>@Model.Description</p></div>
+            <div><label>Contact Number:</label><p>@Model.ContactNumber</p></div>
+            <div><label>Status:</label><p>@Model.Status</p></div>
+            
+            <a href="/Index/Missing" class="btn-back">Back</a>
+        </div>
+
+</body>
+</html>

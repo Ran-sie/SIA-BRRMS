@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Add Family Record";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="~/css/CreateEvacuess.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Logo" />
+            <div class="logo-text">
+                <h1 class="logoName">San Bartolome Barangay Hall</h1>
+                <h2 class="logoSubtitle">Barangay Risk Reduction Management System</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="body">
+        <div class="nav-container">
+            <div class="nav-bar">
+                <div class="nav-item">
+                    <a href="/Index" class="@(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Mapping" class="@(ViewData["ActivePage"]?.ToString() == "Mapping" ? "active" : "")">Risk Mapping</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Missing" class="@(ViewData["ActivePage"]?.ToString() == "Missing" ? "active" : "")">Missing Report</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Evacuess" class="@(ViewData["ActivePage"]?.ToString() == "Evacuess" ? "active" : "")">Evacuess</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="main-content">
+            <h2>Add Family Record</h2>
+
+            <form asp-action="CreateEvacuess" asp-controller="Index" method="post">
+                @Html.AntiForgeryToken()
+
+                <div>
+                    <label>Head of Family Name</label>
+                    <input type="text" name="HeadOfFamily" placeholder="Enter name" required />
+                </div>
+
+                <div>
+                    <label>Address</label>
+                    <input type="text" name="Address" placeholder="Enter address" />
+                </div>
+
+                <div>
+                    <label>Contact Number</label>
+                    <input type="text" name="ContactNumber" placeholder="Enter contact number" />
+                </div>
+
+                <div>
+                    <label>Disaster Type</label>
+                    <input type="text" name="DisasterType" placeholder="Enter disaster type" />
+                </div>
+
+                <div class="form-group">
+                    <label for="MappingId">Evacuation Center Assigned</label>
+                    <select id="MappingId" name="MappingId" required>
+                        <option value="" disabled selected>Select evacuation site</option>
+                        @if (ViewBag.EvacuationAreas != null)
+                        {
+                            foreach (var area in ViewBag.EvacuationAreas)
+                            {
+                                <option value="@area.MappingId" data-name="@area.Name">@area.Name</option>
+                            }
+                        }
+                    </select>
+
+                    <input type="hidden" id="EvacuationCenterAssigned" name="EvacuationCenterAssigned" />
+                </div>
+
+
+                <div>
+                    <label>Total Family Members</label>
+                    <input type="number" name="TotalMembers" placeholder="Enter total" required />
+                </div>
+
+                <div>
+                    <label>No. of Senior Citizens</label>
+                    <input type="number" name="Seniors" placeholder="Enter count" />
+                </div>
+
+                <div>
+                    <label>No. of PWD</label>
+                    <input type="number" name="PWD" placeholder="Enter count" />
+                </div>
+
+                <div>
+                    <label>No. of Children</label>
+                    <input type="number" name="Children" placeholder="Enter count" />
+                </div>
+
+                <button type="submit" class="submit-btn">Save Record</button>
+                <a href="/Index/Evacuess" class="cancel-btn">Cancel</a>
+            </form>
+        </div>
+        </div>
+
+    <script>
+        document.getElementById("MappingId").addEventListener("change", function () {
+            const selectedOption = this.options[this.selectedIndex];
+            const centerName = selectedOption.getAttribute("data-name");
+            document.getElementById("EvacuationCenterAssigned").value = centerName;
+        });
+    </script>
+
+</body>
+</html>

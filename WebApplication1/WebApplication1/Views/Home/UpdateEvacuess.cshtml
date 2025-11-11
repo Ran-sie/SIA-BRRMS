@@ -1,0 +1,105 @@
+﻿@model WebApplication1.Models.EvacModel
+
+@{
+    ViewData["Title"] = "Update Evacuee";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="~/css/CreateEvacuess.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Logo" />
+            <div class="logo-text">
+                <h1 class="logoName">San Bartolome Barangay Hall</h1>
+                <h2 class="logoSubtitle">Barangay Risk Reduction Management System</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="body">
+        <div class="nav-container">
+            <div class="nav-bar">
+                <div class="nav-item">
+                    <a href="/Index" class="@(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Mapping" class="@(ViewData["ActivePage"]?.ToString() == "Mapping" ? "active" : "")">Risk Mapping</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Missing" class="@(ViewData["ActivePage"]?.ToString() == "Missing" ? "active" : "")">Missing Report</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Evacuess" class="@(ViewData["ActivePage"]?.ToString() == "Evacuess" ? "active" : "")">Evacuess</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <h2>Update Evacuee</h2>
+
+            <form asp-action="UpdateEvacuess" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="FamilyId" value="@Model.FamilyId" />
+
+                <div>
+                    <label for="HeadOfFamily">Head of Family</label>
+                    <input type="text" id="HeadOfFamily" name="HeadOfFamily" value="@Model.HeadOfFamily" required />
+                </div>
+
+                <div>
+                    <label for="Address">Address</label>
+                    <input type="text" id="Address" name="Address" value="@Model.Address" required />
+                </div>
+
+                <div>
+                    <label for="ContactNumber">Contact Number</label>
+                    <input type="text" id="ContactNumber" name="ContactNumber" value="@Model.ContactNumber" required />
+                </div>
+
+                <div>
+                    <label for="DisasterType">Disaster Type</label>
+                    <input type="text" id="DisasterType" name="DisasterType" value="@Model.DisasterType" />
+                </div>
+
+                <div>
+                    <label for="EvacuationCenterAssigned">Evacuation Center Assigned</label>
+                    <input type="text" id="EvacuationCenterAssigned" name="EvacuationCenterAssigned" value="@Model.EvacuationCenterAssigned" required />
+                </div>
+
+                <div>
+                    <label for="TotalMembers">Total Members</label>
+                    <input type="number" id="TotalMembers" name="TotalMembers" value="@Model.TotalMembers" required />
+                </div>
+
+                <div>
+                    <label for="Seniors">Seniors</label>
+                    <input type="number" id="Seniors" name="Seniors" value="@Model.Seniors" required />
+                </div>
+
+                <div>
+                    <label for="PWD">PWD</label>
+                    <input type="number" id="PWD" name="PWD" value="@Model.PWD" required />
+                </div>
+
+                <div>
+                    <label for="Children">Children</label>
+                    <input type="number" id="Children" name="Children" value="@Model.Children" required />
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn">Update</button>
+                    <a href="/Index/Evacuess" class="cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+</body>
+</html>
+

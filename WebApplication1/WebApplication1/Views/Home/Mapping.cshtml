@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="~/css/Mapping.css" />
+    <link rel="stylesheet" href="~/css/leaflet.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Logo" />
+            <div class="logo-text">
+                <h1 class="logoName">San Bartolome Barangay Hall</h1>
+                <h2 class="logoSubtitle">Barangay Risk Reduction Management System</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="body">
+        <div class="nav-container">
+            <div class="nav-bar">
+                <div class="nav-item">
+                    <a href="/Index" class="@(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Mapping" class="@(ViewData["ActivePage"]?.ToString() == "Mapping" ? "active" : "")">Risk Mapping</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Missing" class="@(ViewData["ActivePage"]?.ToString() == "Missing" ? "active" : "")">Missing Report</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Evacuess" class="@(ViewData["ActivePage"]?.ToString() == "Evacuess" ? "active" : "")">Evacuess</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="info-section">
+                <h1>Safe Zone Mapping</h1>
+                <button class="map-btn" id="addEvacuationBtn">Add Evacuation here</button>
+                <button class="map-btn" id="cancelAddBtn" style="display:none; background:red; color:white;">Cancel</button>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <img src="~/images/evac-primary.png" />
+                        <label>Primary Evacuation</label>
+                    </div>
+                    <div class="legend-item">
+                        <img src="~/images/evac-temporary.png" />
+                        <label>Temporary Evacuation</label>
+                    </div>
+                    <div class="legend-item">
+                        <img src="~/images/evac-safe.png" />
+                        <label>Safe Zone</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="~/js/leaflet.js"></script>
+    <script>
+        // Map bounds (optional, restricts panning)
+        var southWest = L.latLng(14.69727, 121.013117);
+        var northEast = L.latLng(14.717527, 121.049767);
+        var expandedSouthWest = L.latLng(southWest.lat - 0.008, southWest.lng - 0.008);
+        var expandedNorthEast = L.latLng(northEast.lat + 0.008, northEast.lng + 0.008);
+        var expandedBounds = L.latLngBounds(expandedSouthWest, expandedNorthEast);
+
+        // Initialize the map
+        var map = L.map('map', {
+            center: [14.707, 121.031],
+            zoom: 15,
+            minZoom: 14,
+            maxZoom: 16,
+            maxBounds: expandedBounds,
+            maxBoundsViscosity: 1.0
+        });
+
+        // Load map tiles
+        L.tileLayer('/tile/{z}/{x}/{y}.png', {
+            attribution: '&copy; Local Maps',
+            minZoom: 14,
+            maxZoom: 16,
+            noWrap: true
+        }).addTo(map);
+            // Define marker icons first
+                // Define Leaflet icons for each evacuation type
+        var icons = {
+            primary: L.icon({
+                iconUrl: '/images/evac-primary.png', 
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -28]
+            }),
+            temporary: L.icon({
+                iconUrl: '/images/evac-temporary.png', 
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -28]
+            }),
+            "safe zone": L.icon({
+                iconUrl: '/images/evac-safe.png', 
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -28]
+            })
+        };
+
+        // Function to normalize type values from database
+        function getIconByType(type) {
+            if (!type) return icons.primary; 
+            type = type.toLowerCase();      
+            return icons[type] || icons.primary; 
+        }
+
+        // Add mode variables
+        var addMode = false;
+        const addBtn = document.getElementById("addEvacuationBtn");
+        const cancelBtn = document.getElementById("cancelAddBtn"); // make sure you added this button in HTML
+
+        addBtn.addEventListener("click", () => {
+            addMode = true;
+            alert("Click on the map to select the evacuation location.");
+            cancelBtn.style.display = "inline-block"; // show cancel button
+        });
+
+        // Map click logic
+        map.on('click', function(e) {
+            if (addMode) { // only proceed if addMode is true
+                const lat = e.latlng.lat.toFixed(6);
+                const lng = e.latlng.lng.toFixed(6);
+
+               
+                window.location.href = `/Index/CreateMapping?lat=${lat}&lng=${lng}`;
+            }
+        });
+
+        // Cancel button logic
+        cancelBtn.addEventListener("click", () => {
+            addMode = false; 
+            cancelBtn.style.display = "none"; 
+            alert("Add mode cancelled.");
+        });
+
+        // Add existing evacuation points from model
+        var evacuationData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+                evacuationData.forEach(data => {
+            L.marker([data.Latitude, data.Longitude], {
+                icon: getIconByType(data.Type)
+            }).addTo(map)
+            .bindPopup(`
+                <b>${data.Name}</b><br>
+                Type: ${data.Type}<br>
+                Capacity: ${data.Capacity}<br>
+                Facilities: ${data.Facilities}<br><br>
+
+                <button class="edv-btn" onclick="window.location.href='/Index/UpdateMapping?id=${data.MappingId}'">
+                    Update
+                </button>
+                <button class="edv-btn" onclick="if(confirm('Are you sure you want to delete this site?')) window.location.href='/Index/DeleteMapping?id=${data.Id}'">
+                    Delete
+                </button>
+                <button class="edv-btn" onclick="window.location.href='/Evacuees?siteId=${data.Id}'">
+                    View
+                </button>
+            `);
+        });
+
+
+
+    </script>
+
+
+</body>
+</html>

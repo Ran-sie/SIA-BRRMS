@@ -1,0 +1,354 @@
+﻿@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Regular.woff2') format('woff2'), url('../fonts/Poppins-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Bold.woff2') format('woff2'), url('../fonts/Poppins-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Italic.woff2') format('woff2'), url('../fonts/Poppins-Italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #FAF6E9;
+    padding: 20px;
+    border-bottom: 5px solid #000000;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+    .logo img {
+        height: 60px;
+        width: 60px;
+        margin-right: 15px;
+    }
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logoName {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #A0C878;
+    font-weight: 700; 
+}
+
+.logoSubtitle {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #616060;
+    font-weight: 400; 
+}
+
+.nav-bar {
+    position: fixed;
+    top: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    background-color: #A0C878;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+    .nav-bar .nav-item {
+        margin: 0 15px;
+    }
+
+        .nav-bar .nav-item a {
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 22px;
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .nav-bar .nav-item a:hover,
+            .nav-bar .nav-item a.active {
+                background-color: #BCD9A0;
+                font-weight: bold;
+            }
+
+
+/* ============================
+   MAIN CONTENT LAYOUT
+============================ */
+.main-content {
+    display: flex; 
+    flex-direction: column; 
+    margin-top: 150px; 
+    padding: 0;
+}
+
+/* ============================
+   REPORT SECTION
+============================ */
+.report-section {
+    flex-grow: 1;
+    padding: 50px 20px;
+    background-color: #FAF6E9;
+}
+
+    .report-section h2 {
+        color: #4a4a4a;
+        font-weight: 600;
+        font-size: 1.8em;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+/* ============================
+   SEARCH BAR
+============================ */
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.search-input {
+    padding: 10px 18px;
+    border: 1px solid #cccccc;
+    border-right: none;
+    border-radius: 25px 0 0 25px;
+    width: 250px;
+    outline: none;
+    font-size: 15px;
+}
+
+.search-button {
+    padding: 10px 18px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-left: none;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    color: #666666;
+    font-size: 15px;
+    transition: background-color 0.2s;
+}
+
+    .search-button:hover {
+        background-color: #f0f0f0;
+    }
+
+/* ============================
+   DROPDOWN STYLING
+============================ */
+.dropdown-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+    .dropdown-container label {
+        font-weight: 600;
+        font-size: 1em;
+        color: #4a4a4a;
+        margin-bottom: 8px;
+    }
+
+    .dropdown-container select {
+        padding: 10px 18px;
+        width: 300px;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        background-color: #ffffff;
+        font-size: 15px;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+        .dropdown-container select:hover {
+            border-color: #999999;
+        }
+
+        .dropdown-container select:focus {
+            border-color: #666666;
+            box-shadow: 0 0 5px rgba(102, 102, 102, 0.2);
+        }
+
+
+/* ============================
+   TABLE
+============================ */
+.table-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    max-height: 400px; /* adjust as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd; /* optional */
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+thead th {
+    background-color: #ffffff;
+    color: #333333;
+    font-weight: bold;
+    text-align: center;
+    padding: 14px;
+    font-size: 1em;
+    border-bottom: 2px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+tbody td {
+    padding: 18px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+    font-size: 1em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Column widths */
+thead th:nth-child(1), tbody td:nth-child(1) {
+    width: 10%;
+}
+
+thead th:nth-child(2), tbody td:nth-child(2) {
+    width: 25%;
+}
+
+thead th:nth-child(3), tbody td:nth-child(3) {
+    width: 10%;
+}
+
+thead th:nth-child(4), tbody td:nth-child(4) {
+    width: 15%;
+}
+
+thead th:nth-child(5), tbody td:nth-child(5) {
+    width: 12%;
+}
+
+thead th:nth-child(6), tbody td:nth-child(6) {
+    width: 28%;
+}
+
+/* ============================
+   STATUS TAGS
+============================ */
+.status-tag {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.95em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.status-found {
+    background-color: #4CAF50;
+}
+
+.status-missing {
+    background-color: #F44336;
+}
+
+/* ============================
+   ACTION BUTTONS
+============================ */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    color: #000000;
+    cursor: pointer;
+    text-decoration: none !important;
+    font-size: 0.9em;
+    font-weight: normal;
+    transition: opacity 0.2s;
+}
+
+    .action-btn:hover {
+        opacity: 0.8;
+    }
+
+.view-btn {
+    background-color: #A0C878;
+}
+
+.update-btn {
+    background-color: #787FC8;
+}
+
+.delete-btn {
+    background-color: #FF8888;
+}
+
+/* ============================
+   SUBMIT BUTTON
+============================ */
+.submit-report-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit-report-btn {
+    background-color: #81c784;
+    color: #ffffff;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+}
+
+    .submit-report-btn:hover {
+        background-color: #66bb6a;
+    }
+

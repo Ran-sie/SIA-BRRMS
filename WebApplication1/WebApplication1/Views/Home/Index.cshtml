@@ -1,0 +1,125 @@
+﻿@model WebApplication1.Models.DashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="~/css/Index.css" /> 
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Logo" />
+            <div class="logo-text">
+                <h1 class="logoName">San Bartolome Barangay Hall</h1>
+                <h2 class="logoSubtitle">Barangay Risk Reduction Management System</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="body">
+        <div class="nav-container">
+            <div class="nav-bar">
+                <div class="nav-item">
+                    <a href="/Index" class="@(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Mapping" class="@(ViewData["ActivePage"]?.ToString() == "Mapping" ? "active" : "")">Risk Mapping</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Missing" class="@(ViewData["ActivePage"]?.ToString() == "Missing" ? "active" : "")">Missing Report</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Evacuess" class="@(ViewData["ActivePage"]?.ToString() == "Evacuess" ? "active" : "")">Evacuess</a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Dashboard -->
+        
+
+        <div class="main-content">
+            <h1>Disaster Management Dashboard</h1>
+            <div class="box">
+                <div class="num_fam">
+                    <div class="fam-text">@Model.TotalEvacuationCenters</div>
+                    <div class="fam-text">Evacuation Centers</div>
+                </div>
+
+                <div class="num_fam">
+                    <div class="fam-text">@Model.TotalEvacuees</div>
+                    <div class="fam-text">Registered Evacuess</div>
+                </div>
+
+                <div class="num_fam">
+                    <div class="fam-text">@Model.TotalMissing</div>
+                    <div class="fam-text">Missing Persons</div>
+                </div>
+
+                <div class="num_fam">
+                    <div class="fam-text">0</div>
+                    <div class="fam-text">Upcoming Drills</div>
+                </div>
+            </div>
+
+            <div class="charts">
+                <canvas id="barChart"></canvas>
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script src="~/js/chart.min.js"></script>
+    <script>
+        const familiesPerZone = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.FamiliesPerZone));
+        const missingCount = @Model.MissingCount;
+        const foundCount = @Model.FoundCount;
+        const evacuatedCount = @Model.EvacuatedCount;
+        const safeCount = @Model.SafeCount;
+
+        // Bar chart
+        const barCtx = document.getElementById('barChart');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(familiesPerZone),
+                datasets: [{
+                    label: 'Number of Families',
+                    data: Object.values(familiesPerZone),
+                    borderWidth: 1,
+                    backgroundColor: '#A0C878',
+                    borderColor: '#000'
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        // Pie chart
+        const pieCtx = document.getElementById('pieChart');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Missing', 'Found'],
+                datasets: [{
+                    label: 'Status Distribution',
+                    data: [missingCount, foundCount],
+                    backgroundColor: ['#E57373', '#A0C878'],
+                    borderColor: '#000',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: { display: true, text: 'Missing vs Found' }
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="~/css/Evacuess.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Logo" />
+            <div class="logo-text">
+                <h1 class="logoName">San Bartolome Barangay Hall</h1>
+                <h2 class="logoSubtitle">Barangay Risk Reduction Management System</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="body">
+        <div class="nav-container">
+            <div class="nav-bar">
+                <div class="nav-item">
+                    <a href="/Index" class="@(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Mapping" class="@(ViewData["ActivePage"]?.ToString() == "Mapping" ? "active" : "")">Risk Mapping</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Missing" class="@(ViewData["ActivePage"]?.ToString() == "Missing" ? "active" : "")">Missing Report</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/Index/Evacuess" class="@(ViewData["ActivePage"]?.ToString() == "Evacuess" ? "active" : "")">Evacuess</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Evacuess -->
+        @model IEnumerable<WebApplication1.Models.EvacModel>
+
+        <div class="main-content">
+            <div class="report-section">
+                <h2>Evacuees Inventory</h2>
+
+            <div class="dropdown-container">
+                <form asp-action="Evacuess" method="get">
+                    <label for="selectedMappingId">Evacuation Center Assigned</label>
+                    <select id="selectedMappingId" name="selectedMappingId" required onchange="this.form.submit()">
+                        <option value="">All Evacuation</option>
+                        @foreach (var area in ViewBag.EvacuationAreas)
+                        {
+                            <option value="@area.MappingId" @(ViewBag.SelectedMappingId == area.MappingId ? "selected" : "")>
+                                @area.Name
+                            </option>
+                        }
+                    </select>
+                </form>
+            </div>
+
+
+
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-input">
+                    <button class="search-button"><i class="fas fa-search"></i></button>
+                </div>
+
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Family ID</th>
+                                <th>Head of Family</th>
+                                <th>Seniors</th>
+                                <th>PWD</th>
+                                <th>Children</th>
+                                <th>Total Members</th>
+                                <th>Evacuation Center Assigned</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var e in Model)
+                                {
+                                    <tr>
+                                        <td>@e.FamilyId</td>
+                                        <td>@e.HeadOfFamily</td>
+                                        <td>@e.Seniors</td>
+                                        <td>@e.PWD</td>
+                                        <td>@e.Children</td>
+                                        <td>@e.TotalMembers</td>
+                                        <td>@e.EvacuationCenterAssigned</td>
+                                        <td class="action-buttons">
+                                        <a class="action-btn update-btn"
+                                           href="/Index/UpdateEvacuess?FamilyId=@e.FamilyId">
+                                            Update
+                                        </a>
+                                            <a class="action-btn delete-btn"
+                                               href="/Index/DeleteEvacuee?FamilyId=@e.FamilyId"
+                                               onclick="return confirm('Are you sure you want to delete this record?');">
+                                                Delete
+                                            </a>
+                                            </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" class="no-reports">No evacuees found.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    
+                </div>
+        </div>        
+    </div>
+
+    <!-- Add Family Record Button -->
+    <div class="submit-report-container">
+        <button class="submit-report-btn" onclick="window.location.href='/Index/CreateEvacuess'">
+            Add Family Record
+        </button>
+
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+﻿@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Regular.woff2') format('woff2'), url('../fonts/Poppins-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Bold.woff2') format('woff2'), url('../fonts/Poppins-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Italic.woff2') format('woff2'), url('../fonts/Poppins-Italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+}
+
+:root {
+    --color-light-green: #D5E8C9;
+    --color-medium-green: #86BC6C;
+    --color-dark-green: #1E8449;
+    --color-text-dark: #1A531A;
+    --color-page-bg: #F7FBF5;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #FAF6E9;
+    padding: 20px;
+    border-bottom: 5px solid #000000;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+    .logo img {
+        height: 60px;
+        width: 60px;
+        margin-right: 15px;
+    }
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logoName {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #A0C878;
+    font-weight: 700; 
+}
+
+.logoSubtitle {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #616060;
+    font-weight: 400; 
+}
+
+.nav-bar {
+    position: fixed;
+    top: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    background-color: #A0C878;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+    .nav-bar .nav-item {
+        margin: 0 15px;
+    }
+
+        .nav-bar .nav-item a {
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 22px;
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .nav-bar .nav-item a:hover,
+            .nav-bar .nav-item a.active {
+                background-color: #BCD9A0;
+                font-weight: bold;
+            }
+
+
+.container {
+    background-color: var(--color-page-bg);
+    padding: 150px;
+    border-radius: 16px;
+    margin: 30px auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", sans-serif;
+    color: var(--color-text-dark);
+}
+
+/* ============ PAGE TITLE ============ */
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-dark-green);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* ============ SEARCH FORM ============ */
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 300px;
+    padding: 10px 15px;
+    border: 2px solid var(--color-medium-green);
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+    .search-input:focus {
+        border-color: var(--color-dark-green);
+        box-shadow: 0 0 5px var(--color-medium-green);
+    }
+
+.search-button {
+    background-color: var(--color-dark-green);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .search-button:hover {
+        background-color: var(--color-medium-green);
+    }
+
+/* ============ TABLE DESIGN ============ */
+.table-container {
+    overflow-x: auto;
+    border-radius: 10px;
+    background: white;
+    padding: 10px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+    .report-table th {
+        background-color: var(--color-dark-green);
+        color: white;
+        padding: 12px;
+        font-weight: 600;
+    }
+
+    .report-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .report-table tr:hover {
+        background-color: var(--color-light-green);
+        transition: background-color 0.2s ease;
+    }
+
+/* ============ STATUS BADGES ============ */
+.status-found {
+    background-color: var(--color-medium-green);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.status-missing {
+    background-color: #d9534f;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* ============ PHOTO ============ */
+.photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.photo-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-light-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text-dark);
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* ============ BUTTONS ============ */
+
+.actions a,
+.actions a:link,
+.actions a:visited,
+.actions a:hover,
+.actions a:active,
+.actions a:focus {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0 3px;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none !important; 
+    transition: transform 0.1s ease, background-color 0.3s ease;
+    outline: none;
+}
+
+    .actions a:hover {
+        transform: scale(1.05);
+        text-decoration: none !important;
+    }
+
+
+    .actions a.btn-view {
+        background-color: var(--color-medium-green);
+    }
+
+    .actions a.btn-update {
+        background-color: #f0ad4e;
+    }
+
+    .actions a.btn-delete {
+        background-color: #d9534f;
+    }
+
+    .actions a:focus {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+    }
+
+
+
+/* ============ SUBMIT REPORT BUTTON ============ */
+.submit-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-submit {
+    background-color: var(--color-dark-green);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-submit:hover {
+        background-color: var(--color-medium-green);
+    }
+
+/* ============ NO REPORT MESSAGE ============ */
+.no-reports {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgba(0,0,0,0.6);
+    padding: 50px 20px;
+}
+
+.modal-content {
+    background-color: var(--color-page-bg);
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .modal-content h2 {
+        text-align: center;
+        color: var(--color-dark-green);
+        margin-bottom: 25px;
+    }
+
+.view-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 40px;
+}
+
+    .view-form div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .view-form label {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .view-form p {
+        margin: 0;
+        padding: 8px 10px;
+        background-color: #fff;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+.close-btn {
+    align-self: center;
+    margin-top: 25px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--color-medium-green);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .close-btn:hover {
+        background-color: var(--color-dark-green);
+    }

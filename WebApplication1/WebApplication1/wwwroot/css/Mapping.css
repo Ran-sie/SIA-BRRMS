@@ -1,0 +1,174 @@
+﻿@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Regular.woff2') format('woff2'), url('../fonts/Poppins-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Bold.woff2') format('woff2'), url('../fonts/Poppins-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Italic.woff2') format('woff2'), url('../fonts/Poppins-Italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+}
+
+.header {
+    background-color: #FAF6E9;
+    padding: 20px;
+    border-bottom: 5px solid #000000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+    .logo img {
+        height: 60px;
+        width: 60px;
+        margin-right: 15px;
+    }
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logoName {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #A0C878;
+    font-weight: 700;
+}
+
+.logoSubtitle {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #616060;
+    font-weight: 400;
+}
+
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    background-color: #A0C878;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+    .nav-bar .nav-item {
+        margin: 0 15px;
+    }
+
+        .nav-bar .nav-item a {
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 22px;
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .nav-bar .nav-item a:hover,
+            .nav-bar .nav-item a.active {
+                background-color: #BCD9A0;
+                font-weight: bold;
+            }
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+    gap: 40px;
+}
+
+/* Left section (title + button) */
+.info-section {
+    display: flex;
+    flex-direction: column  ;
+    align-items: flex-start;
+    gap: 20px;
+    width: 30%;
+}
+
+/* Button styling (optional, to look nice) */
+.map-btn {
+    background-color: #A0C878;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .map-btn:hover {
+        background-color: #8bb868;
+    }
+
+/* Map on the right */
+#map {
+    height: 450px;
+    width: 65%;
+    border: 2px solid #000000;
+    border-radius: 8px;
+}
+
+
+.legend {
+    display: flex; /* horizontal layout */
+    gap: 20px; /* space between items */
+    margin-top: 25px;
+    flex-direction: column;/* space below buttons */
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: column; /* label below image */
+    align-items: center;
+    font-size: 14px;
+    color: var(--color-text-dark);
+}
+
+    .legend-item img {
+        width: 32px;
+        height: 37px;
+        margin-bottom: 15px;
+    }
+
+
+.edv-btn {
+    background-color: #A0C878;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.edv-btn:hover {
+    background-color: #8bb868;
+}
